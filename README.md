@@ -2,8 +2,8 @@
 A MERN-stack pet adoption platform that helps **adoptee parents** publish pets for adoption and helps **adopters** apply in a **safe and structured** way. PawPact supports a **14-day observation period** before an adoption becomes permanent. 
 
 ## SRS Document
-Paste the link to our Software Requirements Specification (SRS) here:  
-- **SRS Link:** _[ADD LINK HERE]_
+
+- **SRS Link:** _[Click Here](https://docs.google.com/document/d/1OFknvW-dQ63AYljDEAt3fJBGf8-ErHil/edit?usp=sharing&ouid=100453048472828081236&rtpof=true&sd=true)_
 
 ## Team Members
 | **Student ID** | **Name** |
