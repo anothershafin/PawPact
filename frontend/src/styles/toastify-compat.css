@@ -1,0 +1,5 @@
+/* react-toastify’s base rule only includes -webkit-transform; CRA’s PostCSS can emit webkit-only blocks in the bundle.
+   Unprefixed transform keeps stacking behavior and satisfies “define standard property” checks in source CSS. */
+.Toastify__toast-container {
+  transform: translate3d(0, 0, var(--toastify-z-index));
+}

@@ -1,0 +1,89 @@
+/* ===== NAVBAR ===== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 40px;
+  background-color: #2d6a4f;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navbar-brand {
+  font-family: "Nunito", sans-serif;
+  font-weight: 900;
+  font-size: 1.4rem;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.navbar-link {
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #ffffff;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.navbar-link:hover {
+  opacity: 0.8;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.navbar-btn {
+  font-family: "Nunito", sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  border: none;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+}
+
+.navbar-btn-logout {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 6px 18px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.navbar-btn-logout:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .navbar {
+    padding: 12px 16px;
+  }
+
+  .navbar-left {
+    gap: 16px;
+  }
+
+  .navbar-right {
+    gap: 14px;
+  }
+
+  .navbar-brand {
+    font-size: 1.1rem;
+  }
+
+  .navbar-link {
+    font-size: 0.9rem;
+  }
+}
