@@ -19,6 +19,11 @@ export const registerUser = (userData) => API.post("/users/register", userData);
 export const loginUser = (userData) => API.post("/users/login", userData);
 export const getUserProfile = () => API.get("/users/profile");
 export const updateUserProfile = (userData) => API.put("/users/profile", userData);
+// Pet API calls
+export const createPet = (petData) => API.post("/pets", petData);
+export const getMyPets = () => API.get("/pets/mypets");
+export const getPetById = (id) => API.get(`/pets/${id}`);
+export const updatePet = (id, petData) => API.put(`/pets/${id}`, petData);
 
 //send verify otp fr_02
 export const sendOtp = (token) =>

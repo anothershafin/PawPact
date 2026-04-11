@@ -13,6 +13,7 @@ app.use(express.json());
 
 // This looks for backend/routes/userRoutes.js
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/pets", require("./routes/petRoutes"));
 
 app.get("/", (req, res) => {
   res.send("PawPact API is running...");

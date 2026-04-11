@@ -1,0 +1,150 @@
+.pets-container {
+  background-color: #faf0e6;
+  min-height: calc(100vh - 54px);
+  padding: 30px 40px;
+}
+
+.pets-header {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+}
+
+.pets-add-btn {
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px 28px;
+  background-color: #2d6a4f;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.pets-add-btn:hover {
+  background-color: #245a42;
+}
+
+.pets-loading {
+  font-family: "Nunito", sans-serif;
+  font-size: 1.1rem;
+  color: #777777;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.pets-empty {
+  font-family: "Nunito", sans-serif;
+  font-size: 1.1rem;
+  color: #777777;
+  text-align: center;
+  margin-top: 40px;
+}
+
+.pets-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.pet-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.pet-card {
+  display: block;
+  width: 240px;
+  background-color: #2d6a4f;
+  border-radius: 16px;
+  overflow: hidden;
+  text-decoration: none;
+  color: #ffffff;
+  transition: transform 0.2s ease;
+}
+
+.pet-card:hover {
+  transform: translateY(-4px);
+}
+
+.pet-card-image {
+  width: 100%;
+  height: 180px;
+  background-color: #245a42;
+}
+
+.pet-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.pet-card-no-image {
+  width: 100%;
+  height: 100%;
+  background-color: #245a42;
+}
+
+.pet-card-info {
+  padding: 14px 16px 16px 16px;
+}
+
+.pet-card-name {
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  margin: 0 0 4px 0;
+}
+
+.pet-card-detail {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 0.9rem;
+  margin: 2px 0;
+  opacity: 0.9;
+}
+
+.pet-card-vaccine {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 4px 12px;
+  background-color: #ffffff;
+  color: #2d6a4f;
+  border-radius: 6px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.pet-card-edit-btn {
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 8px 24px;
+  background-color: #2d6a4f;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.pet-card-edit-btn:hover {
+  background-color: #245a42;
+}
+
+@media (max-width: 600px) {
+  .pets-container {
+    padding: 20px 16px;
+  }
+
+  .pets-grid {
+    justify-content: center;
+  }
+}
