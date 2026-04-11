@@ -1,0 +1,181 @@
+/* ===== AUTH PAGE WRAPPER ===== */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 54px);
+  background-color: #faf0e6;
+  padding: 40px 20px;
+}
+
+/* ===== AUTH CARD ===== */
+.auth-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 40px 36px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== HEADINGS ===== */
+.auth-title {
+  font-family: "Playfair Display", serif;
+  font-weight: 800;
+  font-size: 2rem;
+  color: #1b1b1b;
+  margin: 0 0 6px 0;
+  text-align: center;
+}
+
+.auth-subtitle {
+  font-family: "Nunito", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: #777777;
+  margin: 0 0 28px 0;
+  text-align: center;
+}
+
+/* ===== ERROR MESSAGE ===== */
+.auth-error {
+  background-color: #fdecea;
+  color: #b71c1c;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.9rem;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+/* ===== SUCCESS MESSAGE ===== */
+.auth-success {
+  background-color: #e8f5e9;
+  color: #2d6a4f;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.9rem;
+  margin-bottom: 18px;
+  text-align: center;
+}
+
+/* ===== FORM ===== */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ===== EACH FIELD ===== */
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+}
+
+.auth-label {
+  font-family: "Nunito", sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #444444;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.auth-input {
+  padding: 11px 14px;
+  font-family: "Nunito", sans-serif;
+  font-size: 0.95rem;
+  border: 1.5px solid #d4c5b5;
+  border-radius: 8px;
+  background-color: #fdfcfb;
+  color: #1b1b1b;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.auth-input:focus {
+  border-color: #2d6a4f;
+}
+
+.auth-input::placeholder {
+  color: #aaaaaa;
+}
+
+/* ===== DROPDOWN SELECT ===== */
+.auth-select {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+
+/* ===== TWO FIELDS SIDE BY SIDE (District + Upazilla) ===== */
+.auth-row {
+  display: flex;
+  gap: 14px;
+}
+
+/* ===== SUBMIT BUTTON ===== */
+.auth-btn {
+  padding: 13px;
+  font-family: "Nunito", sans-serif;
+  font-weight: 800;
+  font-size: 1.05rem;
+  background-color: #2d6a4f;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.auth-btn:hover {
+  background-color: #245a42;
+}
+
+.auth-btn:disabled {
+  background-color: #88b8a0;
+  cursor: not-allowed;
+}
+
+/* ===== SWITCH LINK (Already have account? / Don't have account?) ===== */
+.auth-switch {
+  font-family: "Nunito", sans-serif;
+  font-size: 0.95rem;
+  color: #777777;
+  text-align: center;
+  margin-top: 22px;
+}
+
+.auth-switch-link {
+  color: #2d6a4f;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-switch-link:hover {
+  text-decoration: underline;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 500px) {
+  .auth-card {
+    padding: 28px 20px;
+  }
+
+  .auth-row {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .auth-title {
+    font-size: 1.6rem;
+  }
+}
