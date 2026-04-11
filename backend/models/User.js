@@ -1,5 +1,26 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
+
+const shortlistLabelSchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true, trim: true },
+    petIds: { type: [mongoose.Schema.Types.ObjectId], ref: "Pet", default: [] },
+  },
+  { timestamps: true }
+);
+
+const lifestyleAnswerSchema = new mongoose.Schema(
+  {
+    homeType: { type: String, enum: ["apartment", "house"], required: true },
+    activityLevel: { type: String, enum: ["low", "medium", "high"], required: true },
+    timeAvailable: { type: String, enum: ["low", "medium", "high"], required: true },
+    goodWithKids: { type: String, enum: ["yes", "no"], required: true },
+    goodWithOtherPets: { type: String, enum: ["yes", "no"], required: true },
+    experienceLevel: { type: String, enum: ["firstTime", "experienced"], required: true },
+  },
+  { timestamps: true }
+);
 
 const userSchema = new mongoose.Schema(
   {
