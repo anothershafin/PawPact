@@ -58,7 +58,11 @@ const PetProfile = () => {
 
         <div className="petprofile-photo-section">
           {pet.profilePhoto ? (
-            <img src={pet.profilePhoto} alt={pet.name} className="petprofile-photo" />
+            <img
+              src={`http://localhost:5000${pet.profilePhoto}`}
+              alt={pet.name}
+              className="petprofile-photo"
+            />
           ) : (
             <div className="petprofile-no-photo">No Photo</div>
           )}
@@ -97,6 +101,25 @@ const PetProfile = () => {
             <p className="petprofile-no-req">No requirements</p>
           )}
         </div>
+      </div>
+
+      {/* Photo Album section */}
+      <div className="petprofile-album">
+        <h2 className="petprofile-album-title">Photo Album</h2>
+        {pet.photos && pet.photos.length > 0 ? (
+          <div className="petprofile-album-grid">
+            {pet.photos.map((url, index) => (
+              <div key={index} className="petprofile-album-item">
+                <img
+                  src={`http://localhost:5000${url}`}
+                  alt={`Photo ${index + 1} of ${pet.name}`}
+                />
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="petprofile-no-album">No photos in album yet.</p>
+        )}
       </div>
 
       {/* Vaccination info at bottom */}

@@ -10,6 +10,7 @@ import Pets from "./pages/Pets";
 import AddPet from "./pages/AddPet";
 import PetProfile from "./pages/PetProfile";
 import EditPet from "./pages/EditPet";
+import SearchPets from "./pages/SearchPets";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/add-pet" element={<AddPet />} />
         <Route path="/pet/:id" element={<PetProfile />} />
         <Route path="/edit-pet/:id" element={<EditPet />} />
+        <Route path="/search" element={<SearchPets />} />
       </Routes>
     </Router>
   );

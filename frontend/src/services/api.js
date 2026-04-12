@@ -43,3 +43,24 @@ export const verifyOtp = (otpCode, token) =>
       },
     }
   );
+
+// Public pet search for adopters
+export const searchPets = (params) => API.get("/pets/search", { params });
+
+// Pet profile photo upload
+export const uploadPetProfilePhoto = (id, file) => {
+  const formData = new FormData();
+  formData.append("image", file);
+  return API.post(`/pets/${id}/profile-photo`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+};
+
+// Pet album photos upload
+export const uploadPetAlbumPhotos = (id, files) => {
+  const formData = new FormData();
+  Array.from(files).forEach((file) => formData.append("images", file));
+  return API.post(`/pets/${id}/photos`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+};

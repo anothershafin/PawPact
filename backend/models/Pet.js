@@ -63,6 +63,10 @@ const petSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    photos: {
+      type: [String],
+      default: [],
+    },
   },
   {
     timestamps: true,

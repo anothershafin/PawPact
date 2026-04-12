@@ -44,7 +44,11 @@ const Pets = () => {
               <Link to={`/pet/${pet._id}`} className="pet-card">
                 <div className="pet-card-image">
                   {pet.profilePhoto ? (
-                    <img src={pet.profilePhoto} alt={pet.name} className="pet-card-img" />
+                    <img
+                      src={`http://localhost:5000${pet.profilePhoto}`}
+                      alt={pet.name}
+                      className="pet-card-img"
+                    />
                   ) : (
                     <div className="pet-card-no-image"></div>
                   )}
