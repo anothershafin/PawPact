@@ -34,6 +34,9 @@ const Navbar = () => {
                 Pets
               </Link>
             )}
+            <Link to="/report" className="profile-edit-btn">
+              Report
+            </Link>
             <Link to="/view-profile" className="navbar-link">
               View Profile
             </Link>
