@@ -63,6 +63,13 @@ const petSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    vaccinationSchedule: [
+      {
+        vaccineName: { type: String, required: true },
+        date: { type: Date, required: true },
+        status: { type: String, enum: ["pending", "completed"], default: "pending" }
+      }
+    ],
   },
   {
     timestamps: true,

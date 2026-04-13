@@ -3,9 +3,22 @@ const Pet = require("../models/Pet");
 // @desc    Create a new pet
 // @route   POST /api/pets
 // @access  Private (Pet Parent only)
+// @desc    Get all available pets
+// @route   GET /api/pets
+// @access  Public
+const getAllPets = async (req, res) => {
+  try {
+    // Only fetch pets that are currently available for adoption
+    const pets = await Pet.find({ adoptionStatus: "available" }).populate("owner", "name");
+    res.json(pets);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 const createPet = async (req, res) => {
   try {
-    const { name, breed, age, district, upazilla, diet, pottyTrained } = req.body;
+    // 1. Destructure vaccinationSchedule from req.body
+    const { name, breed, age, district, upazilla, diet, pottyTrained, vaccinationSchedule } = req.body;
 
     const pet = await Pet.create({
       owner: req.user._id,
@@ -16,6 +29,7 @@ const createPet = async (req, res) => {
       upazilla,
       diet: diet || "",
       pottyTrained: pottyTrained || false,
+      vaccinationSchedule: vaccinationSchedule || [] 
     });
 
     res.status(201).json(pet);
@@ -78,6 +92,7 @@ const updatePet = async (req, res) => {
     pet.pottyTrained = req.body.pottyTrained !== undefined ? req.body.pottyTrained : pet.pottyTrained;
     pet.bio = req.body.bio !== undefined ? req.body.bio : pet.bio;
     pet.adoptionStatus = req.body.adoptionStatus || pet.adoptionStatus;
+    pet.vaccinationSchedule = req.body.vaccinationSchedule || pet.vaccinationSchedule;
 
     const updatedPet = await pet.save();
     res.json(updatedPet);
@@ -86,4 +101,4 @@ const updatePet = async (req, res) => {
   }
 };
 
-module.exports = { createPet, getMyPets, getPetById, updatePet };
+module.exports = { createPet, getMyPets, getPetById, updatePet, getAllPets};
