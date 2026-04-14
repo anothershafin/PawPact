@@ -10,7 +10,6 @@ const PetProfile = () => {
   const [pet, setPet] = useState(null);
   const [loading, setLoading] = useState(true);
   
-  // FR-9 State
   const [showShortlistModal, setShowShortlistModal] = useState(false);
   const [shortlistLabel, setShortlistLabel] = useState("Favourites");
 
@@ -92,7 +91,7 @@ const PetProfile = () => {
 
   // FR-11: Calculate Match Score if user is logged in
   const matchScore = userInfo && userInfo.lifestyleAnswers ? 
-    calculateMatchScore(userInfo.lifestyleAnswers, pet.requirements) : null;
+    calculateMatchScore(userInfo.lifestyleAnswers, pet): null;
 
   return (
     <div className="petprofile-container">
