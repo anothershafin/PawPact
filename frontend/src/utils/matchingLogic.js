@@ -1,18 +1,26 @@
-export const calculateMatchScore = (userLifestyle, petRequirements) => {
- 
-  if (!petRequirements || petRequirements.length === 0) return 100;
+export const calculateMatchScore = (userLifestyle, pet) => {
+  if (!userLifestyle || Object.keys(userLifestyle).length === 0) return null;
   
-
-  if (!userLifestyle || Object.keys(userLifestyle).length === 0) return 0;
-
-  let score = 0;
-
-  const userValues = Object.values(userLifestyle);
-
-
-  petRequirements.forEach(req => {
-    if (userValues.includes(req)) score++;
-  });
+  let score = 100;
   
-  return Math.round((score / petRequirements.length) * 100);
+  const isYoung = pet.age.toLowerCase().includes('month') || pet.age.toLowerCase().includes('week');
+
+
+  if (isYoung && userLifestyle.timeAvailable === "Minimal (Quick walks)") score -= 20;
+  
+  
+  if (!pet.pottyTrained && userLifestyle.experience === "First-time Owner") score -= 15;
+  
+  // Deduct points if they have a quiet home but want a high-energy situation
+  if (userLifestyle.homeVibe === "Quiet & Relaxed" && userLifestyle.weekendActivity === "Exploring the outdoors") score -= 5;
+
+  
+  if (pet._id) {
+    const charSum = pet._id.charCodeAt(0) + pet._id.charCodeAt(pet._id.length - 1);
+    const variation = (charSum % 16) - 8; 
+    score += variation;
+  }
+
+  
+  return Math.max(65, Math.min(Math.round(score), 98)); 
 };

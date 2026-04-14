@@ -16,8 +16,27 @@ const AddPet = () => {
     pottyTrained: false,
   });
 
+  // --- FR-7: Vaccination Schedule State ---
+  const [vaccinationSchedule, setVaccinationSchedule] = useState([]);
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // --- FR-7: Vaccination Handlers ---
+  const handleAddVaccine = () => {
+    setVaccinationSchedule([...vaccinationSchedule, { vaccineName: "", date: "", status: "pending" }]);
+  };
+
+  const handleVaccineChange = (index, field, value) => {
+    const updated = [...vaccinationSchedule];
+    updated[index][field] = value;
+    setVaccinationSchedule(updated);
+  };
+
+  const handleRemoveVaccine = (index) => {
+    setVaccinationSchedule(vaccinationSchedule.filter((_, i) => i !== index));
+  };
+  // ----------------------------------------
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -33,7 +52,8 @@ const AddPet = () => {
 
     try {
       setLoading(true);
-      await createPet(formData);
+      
+      await createPet({ ...formData, vaccinationSchedule });
       navigate("/pets");
     } catch (err) {
       setError(
@@ -144,6 +164,45 @@ const AddPet = () => {
               Potty Trained
             </label>
           </div>
+
+          {/* --- FR-7: Dynamic Vaccination UI --- */}
+          <div style={{ border: "1px solid #ccc", padding: "15px", borderRadius: "8px", marginBottom: "20px" }}>
+            <h3 style={{ margin: "0 0 10px 0", fontSize: "16px", color: "#333" }}>Vaccination Schedule (Optional)</h3>
+            
+            {vaccinationSchedule.map((vac, index) => (
+              <div key={index} style={{ display: "flex", gap: "10px", marginBottom: "10px", alignItems: "center", flexWrap: "wrap" }}>
+                <input 
+                  type="text" 
+                  placeholder="Vaccine Name" 
+                  value={vac.vaccineName} 
+                  onChange={(e) => handleVaccineChange(index, "vaccineName", e.target.value)}
+                  required
+                  style={{ flex: 1, padding: "8px", borderRadius: "4px", border: "1px solid #ccc", minWidth: "120px" }}
+                />
+                <input 
+                  type="date" 
+                  value={vac.date} 
+                  onChange={(e) => handleVaccineChange(index, "date", e.target.value)}
+                  required
+                  style={{ padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }}
+                />
+                <select 
+                  value={vac.status} 
+                  onChange={(e) => handleVaccineChange(index, "status", e.target.value)}
+                  style={{ padding: "8px", borderRadius: "4px", border: "1px solid #ccc" }}
+                >
+                  <option value="pending">Pending</option>
+                  <option value="completed">Completed</option>
+                </select>
+                <button type="button" onClick={() => handleRemoveVaccine(index)} style={{ background: "#ff4d4d", color: "white", border: "none", padding: "8px 12px", borderRadius: "4px", cursor: "pointer" }}>X</button>
+              </div>
+            ))}
+            
+            <button type="button" onClick={handleAddVaccine} style={{ background: "#2196F3", color: "white", border: "none", padding: "8px 15px", borderRadius: "4px", cursor: "pointer", fontSize: "14px" }}>
+              + Add Vaccine Date
+            </button>
+          </div>
+          {/* ------------------------------------ */}
 
           <button type="submit" className="auth-btn" disabled={loading}>
             {loading ? "Adding Pet..." : "Add Pet"}
