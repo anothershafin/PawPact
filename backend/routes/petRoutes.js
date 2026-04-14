@@ -1,5 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const { getAllPets } = require("../controllers/petController"); // add it to the import list
+
+router.get("/", getAllPets);
 const {
   createPet,
   getMyPets,

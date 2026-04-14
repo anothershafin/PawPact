@@ -56,6 +56,17 @@ const userSchema = new mongoose.Schema(
     otpExpires: {  //fr_02
       type: Date,
     },
+    shortlist: [
+      {
+        pet: { type: mongoose.Schema.Types.ObjectId, ref: "Pet" },
+        label: { type: String, default: "Favourites" } // e.g., "Favourites", "Nearby"
+      }
+    ],
+    lifestyleAnswers: {
+      type: Map, // Store questions and answers as key-value pairs
+      of: String,
+      default: {}
+    },
   },
   {
     timestamps: true,

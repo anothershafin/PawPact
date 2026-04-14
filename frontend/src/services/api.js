@@ -48,3 +48,16 @@ export const verifyOtp = (otpCode, token) =>
       },
     }
   );
+
+
+export const updateShortlist = (data) => API.post("/features/shortlist", data);
+export const getAllPets = () => API.get("/pets");
+
+
+export const updateLifestyleAnswers = (answers) => API.post("/features/lifestyle", { answers });
+
+
+export const createApplication = (data) => API.post("/features/applications", data);
+export const updateAppStatus = (id, status) => API.put(`/features/applications/${id}`, { status });
+export const getApplications = () => API.get("/features/applications");
+export const removeFromShortlist = (petId) => API.delete(`/features/shortlist/${petId}`);
