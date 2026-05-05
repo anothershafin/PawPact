@@ -1,31 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getApplications, updateAppStatus } from "../services/api";
+import { getApplications, updateAppStatus, startObservation } from "../services/api";
 import { toast } from "react-toastify";
+import ObservationPeriod from "./ObservationPeriod";
 
 const Applications = () => {
   const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [selectedApp, setSelectedApp] = useState(null);
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
+  const fetchApplications = async () => {
+    try {
+      const { data } = await getApplications();
+      // Sort newest first
+      setApplications(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+    } catch (error) {
+      toast.error("Failed to load applications.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const fetchApps = async () => {
-      try {
-        const { data } = await getApplications();
-        // Sort newest first
-        setApplications(data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
-      } catch (error) {
-        toast.error("Failed to load applications.");
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchApps();
+    fetchApplications();
   }, []);
 
   const handleStatusChange = async (id, newStatus) => {
     try {
       await updateAppStatus(id, newStatus);
+      
+      // Start observation if status changed to "under review"
+      if (newStatus === "under review") {
+        try {
+          await startObservation(id);
+          toast.success("Observation period started - 1 minute timer activated!");
+        } catch (error) {
+          console.log("Note: Observation may have already started");
+        }
+      }
+      
       setApplications(applications.map(app => app._id === id ? { ...app, status: newStatus } : app));
       toast.success(`Application marked as ${newStatus}`);
     } catch (error) {
@@ -33,7 +47,10 @@ const Applications = () => {
     }
   };
 
-  const getStatusColor = (status) => {
+  const getStatusColor = (status, returnRequested) => {
+    if (returnRequested) {
+      return { bg: '#ffcccb', text: '#c41e3a', border: '#c41e3a' };
+    }
     switch(status) {
       case 'accepted': return { bg: '#e8f5e9', text: '#2e7d32', border: '#4caf50' };
       case 'rejected': return { bg: '#ffebee', text: '#c62828', border: '#f44336' };
@@ -64,13 +81,19 @@ const Applications = () => {
       ) : (
         <div style={{ display: "grid", gap: "25px", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))" }}>
           {applications.map(app => {
-            const colors = getStatusColor(app.status);
+            const colors = getStatusColor(app.status, app.returnRequested);
+            const displayStatus = app.returnRequested ? "Cancelled" : app.status;
             return (
               <div key={app._id} style={{ background: "white", borderRadius: "16px", overflow: "hidden", boxShadow: "0 10px 25px rgba(0,0,0,0.06)", transition: "transform 0.2s", display: "flex", flexDirection: "column" }}>
                 
                 {/* Header Card */}
                 <div style={{ background: colors.bg, padding: "20px", borderBottom: `3px solid ${colors.border}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <h3 style={{ margin: 0, color: colors.text, fontSize: "1.2rem" }}>{app.pet?.name || "Unknown Pet"}</h3>
+<<<<<<< HEAD
+                  <span style={{ background: colors.text, color: "white", padding: "6px 12px", borderRadius: "20px", fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>
+                    {displayStatus}
+                  </span>
+=======
                   <div style={{ display: "flex", gap: 6, flexWrap: "wrap", justifyContent: "flex-end" }}>
                     <span style={{ background: colors.text, color: "white", padding: "6px 12px", borderRadius: "20px", fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>
                       {app.status}
@@ -81,6 +104,7 @@ const Applications = () => {
                       </span>
                     )}
                   </div>
+>>>>>>> c2aec7f77228d51f49acffaeea0e08071c142681
                 </div>
 
                 {/* Body Content */}
@@ -109,7 +133,7 @@ const Applications = () => {
                   )}
 
                   {/* Interactive Status Changer for Pet Parents */}
-                  {userInfo.role !== "adopter" && (
+                  {userInfo.role !== "adopter" && !app.returnRequested && (
                     <div style={{ marginTop: "auto", paddingTop: "15px", borderTop: "1px solid #f1f5f9" }}>
                       <label style={{ display: "block", fontSize: "0.85rem", fontWeight: "bold", color: "#64748b", marginBottom: "8px", textTransform: "uppercase" }}>Update Status</label>
                       <select 
@@ -125,6 +149,34 @@ const Applications = () => {
                     </div>
                   )}
 
+<<<<<<< HEAD
+                  {/* Cancelled Message - When return was requested */}
+                  {app.returnRequested && (
+                    <div style={{ marginTop: "auto", paddingTop: "15px", borderTop: "1px solid #f1f5f9", background: "#fff5f5", padding: "12px", borderRadius: "8px", color: "#c41e3a", fontWeight: "bold", textAlign: "center" }}>
+                      ❌ Adoption Request Cancelled
+                    </div>
+                  )}
+
+                  {/* View Observation Period Button - For "under review" status */}
+                  {app.status === "under review" && !app.returnRequested && (
+                    <button
+                      onClick={() => setSelectedApp(app._id)}
+                      style={{
+                        marginTop: "15px",
+                        padding: "12px",
+                        background: "#ffc107",
+                        color: "#000",
+                        border: "none",
+                        borderRadius: "8px",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                        fontSize: "0.95rem",
+                        transition: "background 0.3s"
+                      }}
+                    >
+                      👁️ View Observation Period
+                    </button>
+=======
                   {/* Show Agreement button — only when application is accepted */}
                   {app.status === "accepted" && (
                     <Link
@@ -143,6 +195,7 @@ const Applications = () => {
                     >
                       📜 Show Agreement
                     </Link>
+>>>>>>> c2aec7f77228d51f49acffaeea0e08071c142681
                   )}
                 </div>
               </div>
@@ -150,8 +203,48 @@ const Applications = () => {
           })}
         </div>
       )}
+
+      {/* Observation Period Modal */}
+      {selectedApp && (
+        <div style={styles.modal}>
+          <div style={styles.modalContent}>
+            <ObservationPeriod 
+              applicationId={selectedApp}
+              onClose={() => {
+                setSelectedApp(null);
+                fetchApplications();
+              }}
+              onApplicationUpdate={fetchApplications}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
+};
+
+const styles = {
+  modal: {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: "rgba(0, 0, 0, 0.6)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 1000,
+    padding: "20px"
+  },
+  modalContent: {
+    background: "white",
+    borderRadius: "12px",
+    maxHeight: "90vh",
+    overflowY: "auto",
+    maxWidth: "900px",
+    width: "100%"
+  }
 };
 
 export default Applications;

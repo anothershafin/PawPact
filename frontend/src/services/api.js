@@ -82,6 +82,16 @@ export const updateAppStatus = (id, status) => API.put(`/features/applications/$
 export const getApplications = () => API.get("/features/applications");
 export const removeFromShortlist = (petId) => API.delete(`/features/shortlist/${petId}`);
 
+// Observation Period API calls
+export const startObservation = (applicationId) => API.post(`/applications/${applicationId}/start-observation`);
+export const getApplicationDetails = (applicationId) => API.get(`/applications/${applicationId}`);
+export const sendCheckInQuestion = (applicationId, question, dueDate) => 
+  API.post(`/applications/${applicationId}/check-in-questions`, { question, dueDate });
+export const requestReturn = (applicationId, reason) => 
+  API.post(`/applications/${applicationId}/request-return`, { reason });
+export const sendChatMessage = (applicationId, message) => 
+  API.post(`/applications/${applicationId}/chat`, { message });
+
 // ===== Admin API calls =====
 export const adminGetAllUsers = () => API.get("/users");
 export const adminDeleteUser = (id) => API.delete(`/users/${id}`);
@@ -101,3 +111,4 @@ export const searchUsersForReview = (q) => API.get("/reviews/search-users", { pa
 // ===== Agreement API calls =====
 export const getApplicationById = (id) => API.get(`/features/applications/${id}`);
 export const confirmAgreement = (id) => API.put(`/features/applications/${id}/agreement`);
+>>>>>>> c2aec7f77228d51f49acffaeea0e08071c142681
