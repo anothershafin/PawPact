@@ -90,5 +90,10 @@ export const adminUpdateReportStatus = (id, status) => API.put(`/reports/${id}`,
 export const adminDeleteReport = (id) => API.delete(`/reports/${id}`);
 export const adminDeletePet = (id) => API.delete(`/pets/${id}`);
 
-// Get a single user's public profile
+//  single user's public profile
 export const getUserById = (id) => API.get(`/users/${id}`);
+
+// ===== Reviews API calls =====
+export const createReview = (data) => API.post("/reviews", data);
+export const getReviewsForUser = (userId) => API.get(`/reviews/user/${userId}`);
+export const searchUsersForReview = (q) => API.get("/reviews/search-users", { params: { q } });

@@ -20,6 +20,8 @@ import Shortlist from "./pages/Shortlist";
 import Applications from "./pages/Applications";
 import Questionnaire from "./pages/Questionnaire";
 import AdminDashboard from "./pages/AdminDashboard";
+import UserReviews from "./pages/UserReviews";
+import AddReview from "./pages/AddReview";
 
 function App() {
   return (
@@ -43,6 +45,9 @@ function App() {
         <Route path="/applications" element={<Applications />} />
         <Route path="/questionnaire" element={<Questionnaire />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/reviews" element={<UserReviews />} />
+        <Route path="/reviews/:userId" element={<UserReviews />} />
+        <Route path="/add-review" element={<AddReview />} />
       </Routes>
     </Router>
   );
