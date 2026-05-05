@@ -81,3 +81,13 @@ export const createApplication = (data) => API.post("/features/applications", da
 export const updateAppStatus = (id, status) => API.put(`/features/applications/${id}`, { status });
 export const getApplications = () => API.get("/features/applications");
 export const removeFromShortlist = (petId) => API.delete(`/features/shortlist/${petId}`);
+
+// Observation Period API calls
+export const startObservation = (applicationId) => API.post(`/applications/${applicationId}/start-observation`);
+export const getApplicationDetails = (applicationId) => API.get(`/applications/${applicationId}`);
+export const sendCheckInQuestion = (applicationId, question, dueDate) => 
+  API.post(`/applications/${applicationId}/check-in-questions`, { question, dueDate });
+export const requestReturn = (applicationId, reason) => 
+  API.post(`/applications/${applicationId}/request-return`, { reason });
+export const sendChatMessage = (applicationId, message) => 
+  API.post(`/applications/${applicationId}/chat`, { message });
