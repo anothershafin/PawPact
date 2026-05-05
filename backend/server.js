@@ -16,7 +16,8 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // This looks for backend/routes/userRoutes.js
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/pets", require("./routes/petRoutes"));
-
+app.use("/api/reports", require("./routes/reportRoutes"));
+app.use("/api/features", require("./routes/shortlistRoutes"));
 app.get("/", (req, res) => {
   res.send("PawPact API is running...");
 });

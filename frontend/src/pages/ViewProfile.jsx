@@ -117,33 +117,106 @@ const ViewProfile = () => {
           <span className="profile-value">{user.district}</span>
         </div>
 
-        {user.isVerified ? (
-          <span className="verified-badge">✔ Verified</span>
-        ) : (
-          <div>
-            <p className="profile-not-verified">You are not verified yet.</p>
-
-            <div className="profile-actions">
-              <button className="profile-placeholder-btn" onClick={handleSendOtp}>
-                Send OTP
-              </button>
-
-              <input
-                type="text"
-                placeholder="Enter OTP"
-                value={otp}
-                onChange={(e) => setOtp(e.target.value)}
-              />
-
-              <button className="profile-placeholder-btn" onClick={handleVerifyOtp}>
-                Verify OTP
-              </button>
+        <div className="verify-layout">
+          <div className="verify-card">
+            <div className="verify-header">
+              <p className="verify-eyebrow">Account Trust</p>
+              <h3 className="verify-title">Profile Verification</h3>
+              <p className="verify-subtitle">
+                Verify your PawPact account using a one-time password.
+              </p>
             </div>
 
-            {message && <p style={{ color: "green", marginTop: "10px" }}>{message}</p>}
-            {error && <p style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+            {user.isVerified ? (
+              <div className="verified-box">
+                <span className="verified-badge">✔ Verified</span>
+                <p className="verified-text">
+                  Your account has been verified successfully.
+                </p>
+              </div>
+            ) : (
+              <>
+                <div className="verify-status-box">
+                  <p className="profile-not-verified">
+                    You are not verified yet.
+                  </p>
+                </div>
+
+                <div className="verify-form-group">
+                  <button
+                    className="profile-placeholder-btn"
+                    onClick={handleSendOtp}
+                  >
+                    Send OTP
+                  </button>
+                </div>
+
+                <div className="verify-form-group">
+                  <label className="verify-label">Enter OTP</label>
+                  <input
+                    type="text"
+                    className="verify-input"
+                    placeholder="Enter OTP"
+                    value={otp}
+                    onChange={(e) => setOtp(e.target.value)}
+                  />
+                </div>
+
+                <div className="verify-form-group">
+                  <button
+                    className="profile-placeholder-btn"
+                    onClick={handleVerifyOtp}
+                  >
+                    Verify OTP
+                  </button>
+                </div>
+
+                {message && (
+                  <div className="verify-message success">{message}</div>
+                )}
+                {error && <div className="verify-message error">{error}</div>}
+              </>
+            )}
           </div>
-        )}
+
+          <div className="verify-side-panel">
+            <h3 className="side-title">Verification Guide</h3>
+
+            <div className="verify-side-box">
+              <h4>Why verify?</h4>
+              <p>
+                Verified profiles build more trust between adopters and pet
+                parents.
+              </p>
+            </div>
+
+            <div className="verify-side-box">
+              <h4>How it works</h4>
+              <p>
+                Click <strong>Send OTP</strong>, copy the code, then enter it in
+                the field and press <strong>Verify OTP</strong>.
+              </p>
+            </div>
+
+            <div className="verify-side-box">
+              <h4>What happens next?</h4>
+              <p>
+                Once the OTP is correct, your profile gets a verified badge.
+              </p>
+            </div>
+
+            <div className="verify-summary-box">
+              <h4>Current Status</h4>
+              <p>
+                <strong>Verification:</strong>{" "}
+                {user.isVerified ? "Verified" : "Not Verified"}
+              </p>
+              <p>
+                <strong>OTP Field:</strong> {otp ? "Filled" : "Empty"}
+              </p>
+            </div>
+          </div>
+        </div>
 
         <div className="profile-actions">
           <Link to="/edit-profile" className="profile-edit-btn">

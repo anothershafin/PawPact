@@ -25,6 +25,11 @@ export const getMyPets = () => API.get("/pets/mypets");
 export const getPetById = (id) => API.get(`/pets/${id}`);
 export const updatePet = (id, petData) => API.put(`/pets/${id}`, petData);
 
+
+//report API calls
+export const createReport = (reportData) => API.post("/reports", reportData);
+export const getMyReports = () => API.get("/reports/my");
+
 //send verify otp fr_02
 export const sendOtp = (token) =>
   API.post("/users/send-otp", {}, {
@@ -64,3 +69,15 @@ export const uploadPetAlbumPhotos = (id, files) => {
     headers: { "Content-Type": "multipart/form-data" },
   });
 };
+
+export const updateShortlist = (data) => API.post("/features/shortlist", data);
+export const getAllPets = () => API.get("/pets");
+
+
+export const updateLifestyleAnswers = (answers) => API.post("/features/lifestyle", { answers });
+
+
+export const createApplication = (data) => API.post("/features/applications", data);
+export const updateAppStatus = (id, status) => API.put(`/features/applications/${id}`, { status });
+export const getApplications = () => API.get("/features/applications");
+export const removeFromShortlist = (petId) => API.delete(`/features/shortlist/${petId}`);

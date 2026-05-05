@@ -4,6 +4,7 @@ const { upload } = require("../middleware/upload");
 const {
   createPet,
   getMyPets,
+  getAllPets,
   getPetById,
   updatePet,
   searchPets,
@@ -12,6 +13,7 @@ const {
 } = require("../controllers/petController");
 const { protect } = require("../middleware/auth");
 
+router.get("/", getAllPets);
 router.post("/", protect, createPet);
 router.get("/mypets", protect, getMyPets);
 router.get("/search", searchPets);
