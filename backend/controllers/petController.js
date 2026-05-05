@@ -69,10 +69,8 @@ const searchPets = async (req, res) => {
       location,
       breed,
       vaccinationStatus,
-
-  // @desc    Get all available pets
-  // @route   GET /api/pets
-  // @access  Public
+      ageMin,
+      ageMax,
     } = req.query;
 
     const query = {
@@ -103,7 +101,7 @@ const searchPets = async (req, res) => {
       query.$or = orConditions;
     }
 
-    let pets = await Pet.find(query);
+    let pets = await Pet.find(query).populate("owner", "name");
 
     // Age is stored as a string (e.g. "2 years"), so we do
     // simple numeric filtering in memory when possible.
@@ -119,6 +117,12 @@ const searchPets = async (req, res) => {
         return true;
       });
     }
+
+    res.json(pets);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 // @desc    Get all available pets
 // @route   GET /api/pets
