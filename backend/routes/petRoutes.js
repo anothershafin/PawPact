@@ -7,6 +7,7 @@ const {
   getAllPets,
   getPetById,
   updatePet,
+  deletePet,
   searchPets,
   uploadProfilePhoto,
   uploadAlbumPhotos,
@@ -19,6 +20,7 @@ router.get("/mypets", protect, getMyPets);
 router.get("/search", searchPets);
 router.get("/:id", getPetById);
 router.put("/:id", protect, updatePet);
+router.delete("/:id", protect, deletePet);
 router.post("/:id/profile-photo", protect, upload.single("image"), uploadProfilePhoto);
 router.post("/:id/photos", protect, upload.array("images", 10), uploadAlbumPhotos);
 

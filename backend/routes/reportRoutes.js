@@ -4,13 +4,17 @@ const {
   createReport,
   getMyReports,
   getAllReports,
+  updateReportStatus,
+  deleteReport,
 } = require("../controllers/reportController");
-const { protect } = require("../middleware/auth");
+const { protect, adminOnly } = require("../middleware/auth");
 
 router.post("/", protect, createReport);
 router.get("/my", protect, getMyReports);
 
-// optional admin route
-router.get("/", protect, getAllReports);
+// Admin routes
+router.get("/", protect, adminOnly, getAllReports);
+router.put("/:id", protect, adminOnly, updateReportStatus);
+router.delete("/:id", protect, adminOnly, deleteReport);
 
 module.exports = router;
