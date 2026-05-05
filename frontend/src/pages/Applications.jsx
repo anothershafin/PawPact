@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { getApplications, updateAppStatus } from "../services/api";
 import { toast } from "react-toastify";
 
@@ -70,9 +71,16 @@ const Applications = () => {
                 {/* Header Card */}
                 <div style={{ background: colors.bg, padding: "20px", borderBottom: `3px solid ${colors.border}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <h3 style={{ margin: 0, color: colors.text, fontSize: "1.2rem" }}>{app.pet?.name || "Unknown Pet"}</h3>
-                  <span style={{ background: colors.text, color: "white", padding: "6px 12px", borderRadius: "20px", fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>
-                    {app.status}
-                  </span>
+                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap", justifyContent: "flex-end" }}>
+                    <span style={{ background: colors.text, color: "white", padding: "6px 12px", borderRadius: "20px", fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>
+                      {app.status}
+                    </span>
+                    {app.agreement?.adopterConfirmed && app.agreement?.parentConfirmed && (
+                      <span style={{ background: "#166534", color: "white", padding: "6px 12px", borderRadius: "20px", fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>
+                        ✓ Confirmed
+                      </span>
+                    )}
+                  </div>
                 </div>
 
                 {/* Body Content */}
@@ -115,6 +123,26 @@ const Applications = () => {
                         <option value="rejected">Rejected</option>
                       </select>
                     </div>
+                  )}
+
+                  {/* Show Agreement button — only when application is accepted */}
+                  {app.status === "accepted" && (
+                    <Link
+                      to={`/agreement/${app._id}`}
+                      style={{
+                        display: "block",
+                        textAlign: "center",
+                        marginTop: 10,
+                        padding: "10px",
+                        background: "#8b5cf6",
+                        color: "white",
+                        textDecoration: "none",
+                        borderRadius: 8,
+                        fontWeight: "bold",
+                      }}
+                    >
+                      📜 Show Agreement
+                    </Link>
                   )}
                 </div>
               </div>

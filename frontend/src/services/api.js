@@ -97,3 +97,7 @@ export const getUserById = (id) => API.get(`/users/${id}`);
 export const createReview = (data) => API.post("/reviews", data);
 export const getReviewsForUser = (userId) => API.get(`/reviews/user/${userId}`);
 export const searchUsersForReview = (q) => API.get("/reviews/search-users", { params: { q } });
+
+// ===== Agreement API calls =====
+export const getApplicationById = (id) => API.get(`/features/applications/${id}`);
+export const confirmAgreement = (id) => API.put(`/features/applications/${id}/agreement`);

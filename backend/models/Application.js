@@ -10,7 +10,13 @@ const applicationSchema = new mongoose.Schema(
       enum: ["submitted", "under review", "accepted", "rejected", "withdrawn"],
       default: "submitted"
     },
-    message: { type: String, default: "" }
+    message: { type: String, default: "" },
+    agreement: {
+      adopterConfirmed: { type: Boolean, default: false },
+      parentConfirmed: { type: Boolean, default: false },
+      adopterConfirmedAt: { type: Date },
+      parentConfirmedAt: { type: Date },
+    },
   },
   { timestamps: true }
 );

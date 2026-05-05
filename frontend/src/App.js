@@ -22,6 +22,7 @@ import Questionnaire from "./pages/Questionnaire";
 import AdminDashboard from "./pages/AdminDashboard";
 import UserReviews from "./pages/UserReviews";
 import AddReview from "./pages/AddReview";
+import Agreement from "./pages/Agreement";
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
         <Route path="/reviews" element={<UserReviews />} />
         <Route path="/reviews/:userId" element={<UserReviews />} />
         <Route path="/add-review" element={<AddReview />} />
+        <Route path="/agreement/:id" element={<Agreement />} />
       </Routes>
     </Router>
   );
