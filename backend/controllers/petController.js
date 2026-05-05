@@ -78,6 +78,16 @@ const updatePet = async (req, res) => {
     pet.pottyTrained = req.body.pottyTrained !== undefined ? req.body.pottyTrained : pet.pottyTrained;
     pet.bio = req.body.bio !== undefined ? req.body.bio : pet.bio;
     pet.adoptionStatus = req.body.adoptionStatus || pet.adoptionStatus;
+<<<<<<< Updated upstream
+=======
+    
+    // 👉 ADD THIS LINE TO SAVE REQUIREMENTS!
+    pet.requirements = req.body.requirements || pet.requirements;
+    
+    // Update schedule and auto-calculate new status!
+    pet.vaccinationSchedule = req.body.vaccinationSchedule || pet.vaccinationSchedule;
+    pet.vaccinationStatus = calculateVaccineStatus(pet.vaccinationSchedule);
+>>>>>>> Stashed changes
 
     const updatedPet = await pet.save();
     res.json(updatedPet);
