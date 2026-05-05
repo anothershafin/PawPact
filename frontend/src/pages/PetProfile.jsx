@@ -63,8 +63,6 @@ const PetProfile = () => {
           <p className="petprofile-detail">{pet.age}</p>
           <p className="petprofile-detail">{pet.upazilla}, {pet.district}</p>
           <span className="petprofile-vaccine">{pet.vaccinationStatus}</span>
-<<<<<<< Updated upstream
-=======
           
           {/* Action Buttons for Adopters */}
           {!isOwner && userInfo && (
@@ -78,7 +76,6 @@ const PetProfile = () => {
 
             </div>
           )}
->>>>>>> Stashed changes
         </div>
 
         <div className="petprofile-photo-section">

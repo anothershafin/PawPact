@@ -18,13 +18,10 @@ const EditPet = () => {
     adoptionStatus: "available",
   });
 
-<<<<<<< Updated upstream
-=======
   // --- FR-7: Vaccination Schedule State ---
   const [vaccinationSchedule, setVaccinationSchedule] = useState([]);
   // State for the temporary text input of a new requirement
   const [newRequirement, setNewRequirement] = useState("");
->>>>>>> Stashed changes
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -225,14 +222,6 @@ const EditPet = () => {
           <button type="button" className="auth-btn" style={{ backgroundColor: "#2d6a4f" }}>
             Add Media
           </button>
-<<<<<<< Updated upstream
-          <button type="button" className="auth-btn" style={{ backgroundColor: "#2d6a4f" }}>
-            Add Requirements
-          </button>
-          <button type="button" className="auth-btn" style={{ backgroundColor: "#2d6a4f" }}>
-            Add Vaccination Status
-          </button>
-=======
 
           {showMedia && (
             <div style={{ marginTop: "1rem", padding: "1rem", border: "1px solid #ccc", borderRadius: "8px" }}>
@@ -343,7 +332,6 @@ const EditPet = () => {
             </button>
           </div>
           {/* ------------------------------------ */}
->>>>>>> Stashed changes
 
           <button type="submit" className="auth-btn" style={{ backgroundColor: "#1b1b1b" }} disabled={saving}>
             {saving ? "Saving..." : "Save"}
