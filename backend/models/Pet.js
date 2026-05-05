@@ -63,6 +63,10 @@ const petSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    photos: {
+      type: [String],
+      default: [],
+    },
     vaccinationSchedule: [
       {
         vaccineName: { type: String, required: true },

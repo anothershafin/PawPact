@@ -13,6 +13,7 @@ import Pets from "./pages/Pets";
 import AddPet from "./pages/AddPet";
 import PetProfile from "./pages/PetProfile";
 import EditPet from "./pages/EditPet";
+import SearchPets from "./pages/SearchPets";
 import ReportForm from "./pages/ReportForm";
 import ComparePets from "./pages/ComparePets";
 import Shortlist from "./pages/Shortlist";
@@ -34,6 +35,7 @@ function App() {
         <Route path="/add-pet" element={<AddPet />} />
         <Route path="/pet/:id" element={<PetProfile />} />
         <Route path="/edit-pet/:id" element={<EditPet />} />
+        <Route path="/search" element={<SearchPets />} />
         <Route path="/report" element={<ReportForm />} />
         <Route path="/compare" element={<ComparePets />} />
         <Route path="/shortlist" element={<Shortlist />} />
