@@ -81,3 +81,14 @@ export const createApplication = (data) => API.post("/features/applications", da
 export const updateAppStatus = (id, status) => API.put(`/features/applications/${id}`, { status });
 export const getApplications = () => API.get("/features/applications");
 export const removeFromShortlist = (petId) => API.delete(`/features/shortlist/${petId}`);
+
+// ===== Admin API calls =====
+export const adminGetAllUsers = () => API.get("/users");
+export const adminDeleteUser = (id) => API.delete(`/users/${id}`);
+export const adminGetAllReports = () => API.get("/reports");
+export const adminUpdateReportStatus = (id, status) => API.put(`/reports/${id}`, { status });
+export const adminDeleteReport = (id) => API.delete(`/reports/${id}`);
+export const adminDeletePet = (id) => API.delete(`/pets/${id}`);
+
+// Get a single user's public profile
+export const getUserById = (id) => API.get(`/users/${id}`);

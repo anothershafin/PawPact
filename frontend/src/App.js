@@ -19,6 +19,7 @@ import ComparePets from "./pages/ComparePets";
 import Shortlist from "./pages/Shortlist";
 import Applications from "./pages/Applications";
 import Questionnaire from "./pages/Questionnaire";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
         <Route path="/shortlist" element={<Shortlist />} />
         <Route path="/applications" element={<Applications />} />
         <Route path="/questionnaire" element={<Questionnaire />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );
