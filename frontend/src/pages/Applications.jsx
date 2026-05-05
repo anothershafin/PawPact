@@ -89,14 +89,9 @@ const Applications = () => {
                 {/* Header Card */}
                 <div style={{ background: colors.bg, padding: "20px", borderBottom: `3px solid ${colors.border}`, display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                   <h3 style={{ margin: 0, color: colors.text, fontSize: "1.2rem" }}>{app.pet?.name || "Unknown Pet"}</h3>
-<<<<<<< HEAD
-                  <span style={{ background: colors.text, color: "white", padding: "6px 12px", borderRadius: "20px", fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>
-                    {displayStatus}
-                  </span>
-=======
                   <div style={{ display: "flex", gap: 6, flexWrap: "wrap", justifyContent: "flex-end" }}>
                     <span style={{ background: colors.text, color: "white", padding: "6px 12px", borderRadius: "20px", fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>
-                      {app.status}
+                      {displayStatus}
                     </span>
                     {app.agreement?.adopterConfirmed && app.agreement?.parentConfirmed && (
                       <span style={{ background: "#166534", color: "white", padding: "6px 12px", borderRadius: "20px", fontSize: "0.75rem", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "1px" }}>
@@ -104,7 +99,6 @@ const Applications = () => {
                       </span>
                     )}
                   </div>
->>>>>>> c2aec7f77228d51f49acffaeea0e08071c142681
                 </div>
 
                 {/* Body Content */}

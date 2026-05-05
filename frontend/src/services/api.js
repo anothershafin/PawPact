@@ -111,4 +111,3 @@ export const searchUsersForReview = (q) => API.get("/reviews/search-users", { pa
 // ===== Agreement API calls =====
 export const getApplicationById = (id) => API.get(`/features/applications/${id}`);
 export const confirmAgreement = (id) => API.put(`/features/applications/${id}/agreement`);
->>>>>>> c2aec7f77228d51f49acffaeea0e08071c142681
