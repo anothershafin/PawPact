@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getPetById, updatePet } from "../services/api";
+import { getPetById, updatePet, uploadPetProfilePhoto, uploadPetAlbumPhotos } from "../services/api";
 import "../styles/Auth.css";
 
 const EditPet = () => {
@@ -22,10 +22,14 @@ const EditPet = () => {
   const [vaccinationSchedule, setVaccinationSchedule] = useState([]);
   // State for the temporary text input of a new requirement
   const [newRequirement, setNewRequirement] = useState("");
+
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+
+  const [showMedia, setShowMedia] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     const fetchPet = async () => {
@@ -43,6 +47,7 @@ const EditPet = () => {
           adoptionStatus: data.adoptionStatus || "available",
 
         });
+        setVaccinationSchedule(data.vaccinationSchedule || []);
       } catch (error) {
         console.error("Failed to fetch pet:", error);
       } finally {
@@ -51,6 +56,22 @@ const EditPet = () => {
     };
     fetchPet();
   }, [id]);
+
+  // --- FR-7: Vaccination Handlers ---
+  const handleAddVaccine = () => {
+    setVaccinationSchedule([...vaccinationSchedule, { vaccineName: "", date: "", status: "pending" }]);
+  };
+
+  const handleVaccineChange = (index, field, value) => {
+    const updated = [...vaccinationSchedule];
+    updated[index][field] = value;
+    setVaccinationSchedule(updated);
+  };
+
+  const handleRemoveVaccine = (index) => {
+    setVaccinationSchedule(vaccinationSchedule.filter((_, i) => i !== index));
+  };
+  // ----------------------------------------
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -85,7 +106,7 @@ const EditPet = () => {
 
     try {
       setSaving(true);
-      await updatePet(id, formData);
+      await updatePet(id, { ...formData, vaccinationSchedule });
       setSuccess("Pet updated successfully!");
 
       setTimeout(() => {
@@ -97,6 +118,34 @@ const EditPet = () => {
       );
     } finally {
       setSaving(false);
+    }
+  };
+
+  const handleProfilePhotoChange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      setUploading(true);
+      const { data } = await uploadPetProfilePhoto(id, file);
+      setFormData((prev) => ({ ...prev, profilePhoto: data.profilePhoto }));
+    } catch (err) {
+      console.error("Profile photo upload failed", err);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const handleAlbumPhotosChange = async (e) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    try {
+      setUploading(true);
+      const { data } = await uploadPetAlbumPhotos(id, files);
+      setFormData((prev) => ({ ...prev, photos: data.photos || [] }));
+    } catch (err) {
+      console.error("Album upload failed", err);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -219,8 +268,13 @@ const EditPet = () => {
           </div>
 
           {/* Placeholder buttons for future features */}
-          <button type="button" className="auth-btn" style={{ backgroundColor: "#2d6a4f" }}>
-            Add Media
+          <button
+            type="button"
+            className="auth-btn"
+            style={{ backgroundColor: "#2d6a4f" }}
+            onClick={() => setShowMedia(!showMedia)}
+          >
+            {showMedia ? "Hide Media Options" : "Add Media"}
           </button>
 
           {showMedia && (
@@ -290,6 +344,9 @@ const EditPet = () => {
               </button>
             </div>
           </div>
+          <button type="button" className="auth-btn" style={{ backgroundColor: "#2d6a4f" }}>
+            Add Requirements
+          </button>
 
           {/* --- FR-7: Dynamic Vaccination UI --- */}
           <div style={{ border: "1px solid #ccc", padding: "15px", borderRadius: "8px", marginBottom: "20px", marginTop: "10px" }}>

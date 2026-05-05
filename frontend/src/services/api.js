@@ -48,3 +48,36 @@ export const verifyOtp = (otpCode, token) =>
       },
     }
   );
+
+// Public pet search for adopters
+export const searchPets = (params) => API.get("/pets/search", { params });
+
+// Pet profile photo upload
+export const uploadPetProfilePhoto = (id, file) => {
+  const formData = new FormData();
+  formData.append("image", file);
+  return API.post(`/pets/${id}/profile-photo`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+};
+
+// Pet album photos upload
+export const uploadPetAlbumPhotos = (id, files) => {
+  const formData = new FormData();
+  Array.from(files).forEach((file) => formData.append("images", file));
+  return API.post(`/pets/${id}/photos`, formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+};
+
+export const updateShortlist = (data) => API.post("/features/shortlist", data);
+export const getAllPets = () => API.get("/pets");
+
+
+export const updateLifestyleAnswers = (answers) => API.post("/features/lifestyle", { answers });
+
+
+export const createApplication = (data) => API.post("/features/applications", data);
+export const updateAppStatus = (id, status) => API.put(`/features/applications/${id}`, { status });
+export const getApplications = () => API.get("/features/applications");
+export const removeFromShortlist = (petId) => API.delete(`/features/shortlist/${petId}`);
