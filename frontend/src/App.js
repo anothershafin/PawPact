@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import ApplicationDetail from "./pages/ApplicationDetail";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Signup from "./pages/Signup";
@@ -19,7 +19,7 @@ import ComparePets from "./pages/ComparePets";
 import Shortlist from "./pages/Shortlist";
 import Applications from "./pages/Applications";
 import Questionnaire from "./pages/Questionnaire";
-
+import ApplyToAdopt from "./pages/ApplyToAdopt";
 function App() {
   return (
     <Router>
@@ -41,6 +41,8 @@ function App() {
         <Route path="/shortlist" element={<Shortlist />} />
         <Route path="/applications" element={<Applications />} />
         <Route path="/questionnaire" element={<Questionnaire />} />
+        <Route path="/apply/:id" element={<ApplyToAdopt />} />
+        <Route path="/applications/:id" element={<ApplicationDetail />} />
       </Routes>
     </Router>
   );

@@ -3,7 +3,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db"); // This looks for backend/config/db.js
 const path = require("path");
-
+const applicationRoutes = require('./routes/applicationRoutes');
 dotenv.config();
 connectDB();
 
@@ -18,6 +18,7 @@ app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/pets", require("./routes/petRoutes"));
 app.use("/api/reports", require("./routes/reportRoutes"));
 app.use("/api/features", require("./routes/shortlistRoutes"));
+app.use('/api/applications', applicationRoutes);
 app.get("/", (req, res) => {
   res.send("PawPact API is running...");
 });

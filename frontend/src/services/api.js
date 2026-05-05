@@ -77,7 +77,34 @@ export const getAllPets = () => API.get("/pets");
 export const updateLifestyleAnswers = (answers) => API.post("/features/lifestyle", { answers });
 
 
-export const createApplication = (data) => API.post("/features/applications", data);
-export const updateAppStatus = (id, status) => API.put(`/features/applications/${id}`, { status });
-export const getApplications = () => API.get("/features/applications");
-export const removeFromShortlist = (petId) => API.delete(`/features/shortlist/${petId}`);
+// ✅ CORRECT - Uses the API instance with base URL and auth token
+// Application API calls
+// Application API calls - UPDATED
+export const createApplication = (applicationData) => 
+  API.post('/applications', applicationData);
+
+export const updateAppStatus = (id, status) => 
+  API.put(`/applications/${id}`, { status });
+
+export const getApplications = () => 
+  API.get("/applications");  // ✅ Remove /api prefix
+
+export const removeFromShortlist = (petId) => 
+  API.delete(`/shortlist/${petId}`);  // ✅ Remove /api prefix
+
+// Observation updates
+export const addObservationUpdate = (applicationId, updateData) =>
+  API.post(`/applications/${applicationId}/observations`, updateData);
+
+export const submitObservationResponse = (applicationId, updateId, responseData) =>
+  API.put(`/applications/${applicationId}/observations/${updateId}`, responseData);
+
+export const deleteObservationUpdate = (applicationId, updateId) =>
+  API.delete(`/applications/${applicationId}/observations/${updateId}`);
+export const addObservationTask = async (appId, taskData) => {
+  return await API.post(`/applications/${appId}/tasks`, taskData);
+};
+
+export const replyToObservationTask = async (appId, taskId, replyData) => {
+  return await API.put(`/applications/${appId}/tasks/${taskId}`, replyData);
+};

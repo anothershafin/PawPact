@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getPetById, submitApplication } from "../services/api"; // Ensure you have submitApplication in api.js
+import { getPetById, createApplication } from "../services/api"; // Ensure you have submitApplication in api.js
 import { toast } from "react-toastify";
 import "../styles/Auth.css";
-
+// Change submitApplication to createApplication
 const ApplyToAdopt = () => {
   const { id } = useParams(); // pet ID
   const navigate = useNavigate();
@@ -33,20 +33,26 @@ const ApplyToAdopt = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setSubmitting(true);
-    try {
-      // Send the application to your backend
-      await submitApplication({ petId: id, message });
-      toast.success("Application submitted successfully!");
-      navigate("/applications"); // Redirect back to their applications list
-    } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to submit application.");
-    } finally {
-      setSubmitting(false);
-    }
-  };
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSubmitting(true);
+        console.log("Sending Pet Parent ID:", pet.owner._id || pet.owner);
+        try {
+        await createApplication({ 
+            petId: id, 
+            message: message,
+            petParent: pet.owner._id || pet.owner  // Grabs the ID of the pet's owner
+        });
+        
+        toast.success("Application submitted successfully!");
+        navigate("/applications"); 
+        } catch (error) {
+        toast.error(error.response?.data?.message || "Failed to submit application.");
+        } finally {
+        setSubmitting(false);
+        }
+    };
+  
 
   if (!pet) return <div className="auth-container">Loading...</div>;
 

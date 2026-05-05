@@ -4,9 +4,10 @@ import { getPetById, updateShortlist, createApplication } from "../services/api"
 import { calculateMatchScore } from "../utils/matchingLogic";
 import "../styles/PetProfile.css";
 import { toast } from "react-toastify"; // Imported toast
-
+import { useNavigate } from "react-router-dom"; // Add useNavigate here
 const PetProfile = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [pet, setPet] = useState(null);
   const [loading, setLoading] = useState(true);
   
@@ -129,12 +130,6 @@ const PetProfile = () => {
               <button onClick={handleAddToCompare} style={{ padding: "8px 12px", cursor: "pointer", background: "#f0f0f0", border: "1px solid #ccc", borderRadius: "4px" }}>
                 ⚖️ Compare
               </button>
-
-              {isAdopter && pet.adoptionStatus === "available" && (
-                 <button onClick={handleApply} style={{ padding: "8px 12px", cursor: "pointer", background: "#4caf50", color: "white", border: "none", borderRadius: "4px" }}>
-                   🐾 Apply to Adopt
-                 </button>
-              )}
             </div>
           )}
         </div>

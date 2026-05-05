@@ -8,11 +8,26 @@ const applicationSchema = new mongoose.Schema(
     status: {
       type: String,
       enum: ["submitted", "under review", "accepted", "rejected", "withdrawn"],
-      default: "submitted"
+      default: "submitted"  
     },
+    observationStartDate: { 
+    type: Date 
+  },
+  observationTasks: [
+    {
+      taskDescription: { type: String, required: true },
+      dueDate: { type: Date, required: true },
+      adopterReply: { type: String, default: "" },
+      isCompleted: { type: Boolean, default: false },
+      photoUrl: { type: String, default: "" } // Satisfies the "optional photos" requirement
+    }
+  ],
+    
     message: { type: String, default: "" }
   },
+  
   { timestamps: true }
+  
 );
-
+applicationSchema.index({ pet: 1, adopter: 1 }, { unique: true });
 module.exports = mongoose.model("Application", applicationSchema);
