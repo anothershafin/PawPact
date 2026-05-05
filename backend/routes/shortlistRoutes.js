@@ -8,7 +8,9 @@ const {
   createApplication, 
   updateApplicationStatus,
   getApplications,
-  removeFromShortlist
+  removeFromShortlist,
+  getApplicationById,
+  confirmAgreement,
 } = require("../controllers/shortlist")
 
 // FR-9 & FR-11
@@ -17,8 +19,10 @@ router.post("/lifestyle", protect, updateLifestyleAnswers);
 
 // FR-13
 router.post("/applications", protect, createApplication);
-router.put("/applications/:id", protect, updateApplicationStatus);
 router.get("/applications", protect, getApplications);
+router.get("/applications/:id", protect, getApplicationById);
+router.put("/applications/:id", protect, updateApplicationStatus);
+router.put("/applications/:id/agreement", protect, confirmAgreement);
 router.delete("/shortlist/:petId", protect, removeFromShortlist);
 
 module.exports = router;

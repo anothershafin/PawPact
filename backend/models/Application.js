@@ -11,27 +11,12 @@ const applicationSchema = new mongoose.Schema(
       default: "submitted"
     },
     message: { type: String, default: "" },
-    // Observation period fields
-    observationStartDate: { type: Date, default: null },
-    returnRequested: { type: Boolean, default: false },
-    returnReason: { type: String, default: "" },
-    // Check-in questions
-    checkInQuestions: [
-      {
-        question: String,
-        dueDate: Date,
-        askedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-        createdAt: { type: Date, default: Date.now }
-      }
-    ],
-    // Chat messages during observation
-    chatMessages: [
-      {
-        sender: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-        message: String,
-        timestamp: { type: Date, default: Date.now }
-      }
-    ]
+    agreement: {
+      adopterConfirmed: { type: Boolean, default: false },
+      parentConfirmed: { type: Boolean, default: false },
+      adopterConfirmedAt: { type: Date },
+      parentConfirmedAt: { type: Date },
+    },
   },
   { timestamps: true }
 );

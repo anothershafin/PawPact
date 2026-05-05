@@ -86,8 +86,41 @@ const getAllReports = async (req, res) => {
   }
 };
 
+// @desc    Update report status (admin only)
+// @route   PUT /api/reports/:id
+// @access  Private/Admin
+const updateReportStatus = async (req, res) => {
+  try {
+    const { status } = req.body;
+    const report = await Report.findById(req.params.id);
+    if (!report) return res.status(404).json({ message: "Report not found" });
+
+    report.status = status;
+    const updated = await report.save();
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+// @desc    Delete a report (admin only)
+// @route   DELETE /api/reports/:id
+// @access  Private/Admin
+const deleteReport = async (req, res) => {
+  try {
+    const report = await Report.findById(req.params.id);
+    if (!report) return res.status(404).json({ message: "Report not found" });
+    await report.deleteOne();
+    res.json({ message: "Report deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 module.exports = {
   createReport,
   getMyReports,
   getAllReports,
+  updateReportStatus,
+  deleteReport,
 };

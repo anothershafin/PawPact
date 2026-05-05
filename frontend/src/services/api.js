@@ -91,3 +91,24 @@ export const requestReturn = (applicationId, reason) =>
   API.post(`/applications/${applicationId}/request-return`, { reason });
 export const sendChatMessage = (applicationId, message) => 
   API.post(`/applications/${applicationId}/chat`, { message });
+
+// ===== Admin API calls =====
+export const adminGetAllUsers = () => API.get("/users");
+export const adminDeleteUser = (id) => API.delete(`/users/${id}`);
+export const adminGetAllReports = () => API.get("/reports");
+export const adminUpdateReportStatus = (id, status) => API.put(`/reports/${id}`, { status });
+export const adminDeleteReport = (id) => API.delete(`/reports/${id}`);
+export const adminDeletePet = (id) => API.delete(`/pets/${id}`);
+
+//  single user's public profile
+export const getUserById = (id) => API.get(`/users/${id}`);
+
+// ===== Reviews API calls =====
+export const createReview = (data) => API.post("/reviews", data);
+export const getReviewsForUser = (userId) => API.get(`/reviews/user/${userId}`);
+export const searchUsersForReview = (q) => API.get("/reviews/search-users", { params: { q } });
+
+// ===== Agreement API calls =====
+export const getApplicationById = (id) => API.get(`/features/applications/${id}`);
+export const confirmAgreement = (id) => API.put(`/features/applications/${id}/agreement`);
+>>>>>>> c2aec7f77228d51f49acffaeea0e08071c142681

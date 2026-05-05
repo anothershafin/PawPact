@@ -20,6 +20,8 @@ const EditPet = () => {
 
   // --- FR-7: Vaccination Schedule State ---
   const [vaccinationSchedule, setVaccinationSchedule] = useState([]);
+  // State for the temporary text input of a new requirement
+  const [newRequirement, setNewRequirement] = useState("");
 
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -41,7 +43,9 @@ const EditPet = () => {
           upazilla: data.upazilla,
           diet: data.diet || "",
           pottyTrained: data.pottyTrained || false,
+          requirements: data.requirements || [],
           adoptionStatus: data.adoptionStatus || "available",
+
         });
         setVaccinationSchedule(data.vaccinationSchedule || []);
       } catch (error) {
@@ -76,6 +80,24 @@ const EditPet = () => {
       [name]: type === "checkbox" ? checked : value,
     });
   };
+
+  const handleAddRequirement = () => {
+    if (newRequirement.trim() && !formData.requirements.includes(newRequirement.trim())) {
+      setFormData({
+        ...formData,
+        requirements: [...formData.requirements, newRequirement.trim()]
+      });
+      setNewRequirement(""); // Clear input after adding
+    }
+  };
+
+  const handleRemoveRequirement = (reqToRemove) => {
+    setFormData({
+      ...formData,
+      requirements: formData.requirements.filter(req => req !== reqToRemove)
+    });
+  };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -282,6 +304,46 @@ const EditPet = () => {
               {uploading && <p style={{ marginTop: "0.5rem" }}>Uploading...</p>}
             </div>
           )}
+          
+          <div className="auth-field" style={{ marginTop: "20px", padding: "15px", border: "1px solid #ccc", borderRadius: "8px" }}>
+            <label className="auth-label">Adoption Requirements</label>
+            
+            {/* Display existing requirements */}
+            <ul style={{ listStyleType: "none", padding: 0, marginBottom: "15px" }}>
+              {formData.requirements?.map((req, index) => (
+                <li key={index} style={{ display: "flex", justifyContent: "space-between", background: "#f1f5f9", padding: "8px", marginBottom: "5px", borderRadius: "4px", fontSize: "0.9rem" }}>
+                  <span>{req}</span>
+                  <button 
+                    type="button" 
+                    onClick={() => handleRemoveRequirement(req)}
+                    style={{ background: "none", border: "none", color: "red", cursor: "pointer", fontWeight: "bold" }}
+                  >
+                    X
+                  </button>
+                </li>
+              ))}
+            </ul>
+
+            {/* Input to add a new requirement */}
+            <div style={{ display: "flex", gap: "10px" }}>
+              <input
+                type="text"
+                value={newRequirement}
+                onChange={(e) => setNewRequirement(e.target.value)}
+                placeholder="e.g., Grill in balcony, No small kids"
+                className="auth-input"
+                style={{ flex: 1 }}
+              />
+              <button 
+                type="button" 
+                onClick={handleAddRequirement}
+                className="auth-btn" 
+                style={{ backgroundColor: "#2d6a4f", width: "auto", padding: "0 15px", marginTop: "0" }}
+              >
+                Add
+              </button>
+            </div>
+          </div>
           <button type="button" className="auth-btn" style={{ backgroundColor: "#2d6a4f" }}>
             Add Requirements
           </button>

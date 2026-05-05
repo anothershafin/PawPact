@@ -174,6 +174,9 @@ const updatePet = async (req, res) => {
     pet.pottyTrained = req.body.pottyTrained !== undefined ? req.body.pottyTrained : pet.pottyTrained;
     pet.adoptionStatus = req.body.adoptionStatus || pet.adoptionStatus;
     
+    // 👉 ADD THIS LINE TO SAVE REQUIREMENTS!
+    pet.requirements = req.body.requirements || pet.requirements;
+    
     // Update schedule and auto-calculate new status!
     pet.vaccinationSchedule = req.body.vaccinationSchedule || pet.vaccinationSchedule;
     pet.vaccinationStatus = calculateVaccineStatus(pet.vaccinationSchedule);
@@ -231,12 +234,36 @@ const uploadAlbumPhotos = async (req, res) => {
   }
 };
 
+
+// @desc    Delete a pet (owner or admin)
+// @route   DELETE /api/pets/:id
+// @access  Private
+const deletePet = async (req, res) => {
+  try {
+    const pet = await Pet.findById(req.params.id);
+    if (!pet) return res.status(404).json({ message: "Pet not found" });
+
+    const isOwner = pet.owner.toString() === req.user._id.toString();
+    const isAdmin = req.user.role === "admin";
+    if (!isOwner && !isAdmin) {
+      return res.status(401).json({ message: "Not authorized to delete this pet" });
+    }
+
+    await pet.deleteOne();
+    res.json({ message: "Pet deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 module.exports = {
   createPet,
   getMyPets,
   getAllPets,
   getPetById,
   updatePet,
+  deletePet,
   searchPets,
   uploadProfilePhoto,
   uploadAlbumPhotos,

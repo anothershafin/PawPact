@@ -32,6 +32,10 @@ const Navbar = () => {
             <Link to="/questionnaire" className="navbar-link">Questionnaire</Link>
             <Link to="/report" className="profile-edit-btn">Report</Link>
             <Link to="/view-profile" className="navbar-link">View Profile</Link>
+            <Link to="/reviews" className="navbar-link">Reviews & Ratings</Link>
+             {userInfo.role === "admin" && (
+              <Link to="/admin" className="navbar-link" style={{ background: "#fee2e2", color: "#991b1b", padding: "4px 10px", borderRadius: "6px" }}>Admin</Link>
+            )}
             <button onClick={handleLogout} className="navbar-btn navbar-btn-logout">
               Logout
             </button>
