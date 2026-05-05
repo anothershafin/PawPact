@@ -174,6 +174,9 @@ const updatePet = async (req, res) => {
     pet.pottyTrained = req.body.pottyTrained !== undefined ? req.body.pottyTrained : pet.pottyTrained;
     pet.adoptionStatus = req.body.adoptionStatus || pet.adoptionStatus;
     
+    // 👉 ADD THIS LINE TO SAVE REQUIREMENTS!
+    pet.requirements = req.body.requirements || pet.requirements;
+    
     // Update schedule and auto-calculate new status!
     pet.vaccinationSchedule = req.body.vaccinationSchedule || pet.vaccinationSchedule;
     pet.vaccinationStatus = calculateVaccineStatus(pet.vaccinationSchedule);
