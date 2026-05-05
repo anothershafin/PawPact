@@ -143,7 +143,6 @@ const Applications = () => {
                     </div>
                   )}
 
-<<<<<<< HEAD
                   {/* Cancelled Message - When return was requested */}
                   {app.returnRequested && (
                     <div style={{ marginTop: "auto", paddingTop: "15px", borderTop: "1px solid #f1f5f9", background: "#fff5f5", padding: "12px", borderRadius: "8px", color: "#c41e3a", fontWeight: "bold", textAlign: "center" }}>
@@ -170,7 +169,8 @@ const Applications = () => {
                     >
                       👁️ View Observation Period
                     </button>
-=======
+                  )}
+
                   {/* Show Agreement button — only when application is accepted */}
                   {app.status === "accepted" && (
                     <Link
@@ -189,7 +189,6 @@ const Applications = () => {
                     >
                       📜 Show Agreement
                     </Link>
->>>>>>> c2aec7f77228d51f49acffaeea0e08071c142681
                   )}
                 </div>
               </div>
